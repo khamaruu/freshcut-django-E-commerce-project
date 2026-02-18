@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Add Product</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    body{
+      background:#f5f7fa;
+      font-family:"Segoe UI", system-ui;
+    }
+    .sidebar{
+      width:260px;
+      min-height:100vh;
+      background:#1b5e20;
+      color:#fff;
+    }
+    .sidebar a{
+      color:#dfeede;
+      text-decoration:none;
+      display:block;
+      padding:12px 20px;
+      border-radius:8px;
+      margin:6px 10px;
+    }
+    .sidebar a:hover,.sidebar a.active{
+      background:#2e7d32;
+      color:#fff;
+    }
+    .content{
+      padding:30px;
+    }
+    .card{
+      border:none;
+      border-radius:16px;
+      box-shadow:0 10px 25px rgba(0,0,0,.08);
+    }
+    .btn-green{
+      background:#2e7d32;
+      color:#fff;
+    }
+    .btn-green:hover{
+      background:#1b5e20;
+      color:#fff;
+    }
+  </style>
+</head>
+<body>
+ {% include 'sidebar.html' %}
+
+  <!-- CONTENT -->
+  <div class="flex-grow-1 content">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+      <h3 class="fw-bold">Add New Product</h3>
+      <p class="text-muted">Fill the product details below</p>
+    </div>
+
+    <!-- ADD PRODUCT FORM -->
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label">Product Name</label>
+              <input type="text" class="form-control" placeholder="Fresh Chicken" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <select class="form-select">
+                <option>Select category</option>
+                <option>Chicken</option>
+                <option>Fish</option>
+                <option>Mutton</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Price (₹)</label>
+              <input type="number" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Stock (Kg / Units)</label>
+              <input type="number" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Status</label>
+              <select class="form-select">
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Product Description</label>
+              <textarea class="form-control" rows="4" placeholder="Product details..."></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Product Image</label>
+              <input type="file" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Additional Images</label>
+              <input type="file" class="form-control" multiple />
+            </div>
+
+            <div class="col-12 mt-3">
+              <button type="submit" class="btn btn-green px-4">Save Product</button>
+              <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

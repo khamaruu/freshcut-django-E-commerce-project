@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile | Fresh Cut</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --pro-green: #004d40;
+            --pro-text: #1a1a1a;
+            --pro-subtext: #6c757d;
+            --pro-border: #eef0f2;
+            --pro-bg: #ffffff;
+        }
+
+        body {
+            background-color: #fcfdfd;
+            font-family: 'Inter', sans-serif;
+            color: var(--pro-text);
+        }
+
+        /* Top Navigation */
+        .nav-header {
+            background: var(--pro-bg);
+            border-bottom: 1px solid var(--pro-border);
+            padding: 1rem 0;
+        }
+
+        /* Profile Header Section */
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .account-card {
+            background: var(--pro-bg);
+            border: 1px solid var(--pro-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .account-header {
+            padding: 40px 30px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--pro-border);
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            margin-right: 24px;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--pro-border);
+        }
+
+        .edit-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--pro-green);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 2px solid white;
+        }
+
+        /* Information Grid */
+        .info-grid {
+            padding: 30px;
+            background: #fafbfc;
+        }
+
+        .info-group {
+            margin-bottom: 20px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--pro-subtext);
+            margin-bottom: 4px;
+        }
+
+        .info-data {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--pro-text);
+        }
+
+        /* List Items */
+        .list-group-pro {
+            border-top: 1px solid var(--pro-border);
+        }
+
+        .list-item-pro {
+            display: flex;
+            align-items: center;
+            padding: 18px 30px;
+            text-decoration: none;
+            color: var(--pro-text);
+            border-bottom: 1px solid var(--pro-border);
+            transition: all 0.2s;
+        }
+
+        .list-item-pro:hover {
+            background-color: #f8f9fa;
+            color: var(--pro-green);
+        }
+
+        .list-item-pro i:first-child {
+            font-size: 20px;
+            margin-right: 15px;
+            color: var(--pro-subtext);
+        }
+
+        .list-item-pro .arrow-icon {
+            margin-left: auto;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            color: #d32f2f !important;
+        }
+
+        .logout-btn i {
+            color: #d32f2f !important;
+        }
+    </style>
+</head>
+<body>
+
+<header class="nav-header">
+    <div class="container d-flex align-items-center">
+        <a href="#" class="text-dark text-decoration-none">
+            <i class="bi bi-arrow-left me-2"></i>
+            <span class="fw-semibold">Account Settings</span>
+        </a>
+    </div>
+</header>
+
+<div class="container profile-container">
+    <div class="account-card">
+        
+        <div class="account-header">
+            <div class="profile-image-wrapper">
+                <img src="https://via.placeholder.com/100" class="profile-img" alt="Khamarudheen">
+                <div class="edit-badge"><i class="bi bi-camera"></i></div>
+            </div>
+            <div>
+                <h3 class="mb-1 fw-bold">Khamarudheen</h3>
+                <p class="mb-0 text-muted">+91 98765 43210</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="row">
+                <div class="col-md-6 info-group">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-data">user@email.com</div>
+                </div>
+                <div class="col-md-6 info-group">
+                    <div class="info-label">City / State</div>
+                    <div class="info-data">Kerala, India</div>
+                </div>
+                <div class="col-12 info-group mb-0">
+                    <div class="info-label">Shipping Address</div>
+                    <div class="info-data">Fresh Cut, Main Road, Near Market, Kerala - 670001</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-group-pro">
+            <a href="#" class="list-item-pro">
+                <i class="bi bi-person-gear"></i>
+                <span class="fw-medium">Edit Profile Details</span>
+                <i class="bi bi-chevron-right arrow-icon"></i>
+            </a>
+            
+            <a href="#" class="list-item-pro">
+                <i class="bi bi-geo"></i>
+                <span class="fw-medium">Manage Delivery Addresses</span>
+                <i class="bi bi-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="#" class="list-item-pro logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                <span class="fw-semibold">Log Out from Account</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

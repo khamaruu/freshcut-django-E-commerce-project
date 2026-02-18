@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | Fresh Cut</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root{
+  --green:#1b5e20;
+  --green2:#2e7d32;
+  --bg:#f6f8f7;
+}
+
+body{
+  background:var(--bg);
+  font-family:"Segoe UI", system-ui;
+}
+
+/* HEADER */
+.header{
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.logo{
+  font-size:24px;
+  font-weight:900;
+  color:var(--green);
+}
+
+/* CARD */
+.checkout-card{
+  background:#fff;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+/* FORM */
+.form-control{
+  border-radius:12px;
+  padding:10px 12px;
+}
+.form-control:focus{
+  box-shadow:none;
+  border-color:var(--green);
+}
+
+/* ADDRESS */
+.address-item{
+  display:flex;
+  gap:12px;
+  padding:14px;
+  border:1px solid #e0e0e0;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:.25s;
+}
+.address-item:hover{
+  border-color:var(--green);
+  background:#f4faf6;
+}
+.address-item input{
+  margin-top:4px;
+}
+.address-details{
+  font-size:14px;
+  line-height:1.4;
+}
+.address-title{
+  font-weight:700;
+}
+
+/* ORDER */
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+/* PAYMENT */
+.pay-box{
+  border:1px solid #e0e0e0;
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+/* BUTTON */
+.place-btn{
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  border:none;
+  padding:14px;
+  font-weight:800;
+  border-radius:30px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header py-3 mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="logo">Fresh Cut</div>
+    <a href="{% url 'cart' %}" class="text-decoration-none text-success fw-semibold">
+      ← Back to Cart
+    </a>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="container">
+  <div class="row g-4">
+
+    <!-- LEFT -->
+    <div class="col-md-7">
+
+      <!-- ADDRESS -->
+      <div class="checkout-card mb-4">
+        <h5 class="fw-bold mb-3">Delivery Address</h5>
+
+        <!-- EXISTING -->
+        <label class="address-item">
+          <input type="radio" name="addressType" checked onclick="toggleAddress(false)">
+          <div class="address-details">
+            <div class="address-title">Khamarudheen</div>
+            960054552<br>
+            Kochi, Kerala – 682001
+          </div>
+        </label>
+
+        <label class="address-item">
+          <input type="radio" name="addressType" onclick="toggleAddress(false)">
+          <div class="address-details">
+            <div class="address-title">Home</div>
+            9999999999<br>
+            Ernakulam, Kerala – 682020
+          </div>
+        </label>
+
+        <!-- ADD NEW -->
+        <label class="address-item">
+          <input type="radio" name="addressType" onclick="toggleAddress(true)">
+          <div class="address-details">
+            <div class="address-title">Add New Address</div>
+            Enter a new delivery address
+          </div>
+        </label>
+
+        <!-- NEW ADDRESS FORM -->
+        <div id="newAddressForm" class="d-none mt-3">
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">Full Name</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">Phone Number</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">Delivery Address</label>
+            <textarea class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-md-6">
+              <input class="form-control" placeholder="City">
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" placeholder="Pincode">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="checkout-card">
+        <h5 class="fw-bold mb-3">Payment Method</h5>
+
+        <label class="pay-box">
+          <input type="radio" name="pay" checked> Cash on Delivery
+        </label>
+
+        <label class="pay-box">
+          <input type="radio" name="pay"> UPI / Google Pay / PhonePe
+        </label>
+
+        <label class="pay-box">
+          <input type="radio" name="pay"> Debit / Credit Card
+        </label>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-md-5">
+      <div class="checkout-card">
+        <h5 class="fw-bold mb-3">Order Summary</h5>
+
+        <div class="order-item">
+          <span>Seer Fish (1kg)</span>
+          <span>₹760</span>
+        </div>
+
+        <div class="order-item">
+          <span>Chicken Breast (2kg)</span>
+          <span>₹640</span>
+        </div>
+
+        <hr>
+
+        <div class="order-item">
+          <span>Subtotal</span>
+          <span>₹1,400</span>
+        </div>
+
+        <div class="order-item">
+          <span>Delivery</span>
+          <span>₹40</span>
+        </div>
+
+        <hr>
+
+        <div class="order-item fw-bold fs-6">
+          <span>Total</span>
+          <span>₹1,440</span>
+        </div>
+
+        <a href="{% url 'placeorder' %}" class="text-decoration-none">
+          <button class="btn place-btn w-100 text-white mt-3">
+            Continue to Confirm Order
+          </button>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+function toggleAddress(show){
+  const form = document.getElementById("newAddressForm");
+  show ? form.classList.remove("d-none") : form.classList.add("d-none");
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

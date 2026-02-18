@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }} | Fresh Cut</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #1b5e20;
+            --green2: #2e7d32;
+            --bg: #f6f8f7;
+            --shadow: 0 15px 40px rgba(0,0,0,.08);
+        }
+
+        body {
+            background: var(--bg);
+            font-family: "Segoe UI", system-ui;
+        }
+
+        .product-box {
+            background: #fff;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, var(--green), var(--green2));
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            padding: 14px;
+        }
+
+        .badge-fresh {
+            background: #e8f5e9;
+            color: var(--green);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+{% include "base.html" %}
+
+<div class="container my-5">
+
+    <div class="row g-5 product-box align-items-center">
+
+        <!-- IMAGE -->
+        <div class="col-md-6">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
+            {% else %}
+                <img src="https://via.placeholder.com/500x400?text=No+Image" class="product-img">
+            {% endif %}
+        </div>
+
+        <!-- DETAILS -->
+        <div class="col-md-6">
+
+            <span class="badge badge-fresh mb-2">
+                {{ product.category.name }} • {{ product.subcategory.name }}
+            </span>
+
+            <h1 class="fw-bold mt-2">{{ product.name }}</h1>
+
+            <p class="text-muted mt-3">
+                {{ product.description|default:"Ocean fresh fish, cleaned & hygienically packed." }}
+            </p>
+
+            <div class="price mt-3">
+                ₹{{ product.price }}
+            </div>
+
+            <p class="small text-muted">
+                Net weight: {{ product.weight|default:"500g" }}
+            </p>
+
+            <!-- QUANTITY + CART -->
+            
+<div class="d-flex gap-3 mt-4">
+    {% if product.id in cart_product_ids %}
+        <button class="btn btn-secondary" disabled>Added in Cart</button>
+    {% else %}
+        <form action="{% url 'cart' %}" method="POST" class="w-100">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <button type="submit" class="btn btn-cart text-white w-100">
+                Add to Cart
+            </button>
+        </form>
+    {% endif %}
+</div>
+            <!-- TRUST ICONS -->
+            <div class="row text-center mt-4">
+                <div class="col">
+                    <i class="bi bi-truck fs-4 text-success"></i>
+                    <p class="small mt-1">Same Day Delivery</p>
+                </div>
+                <div class="col">
+                    <i class="bi bi-droplet fs-4 text-success"></i>
+                    <p class="small mt-1">Fresh Cut</p>
+                </div>
+                <div class="col">
+                    <i class="bi bi-shield-check fs-4 text-success"></i>
+                    <p class="small mt-1">Hygienic</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

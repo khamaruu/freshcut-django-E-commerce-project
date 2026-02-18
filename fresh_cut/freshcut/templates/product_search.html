@@ -1,0 +1,320 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Fresh Cut{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CUSTOM STYLES -->
+    <style>
+        :root {
+            --green: #1b5e20;
+            --green2: #2e7d32;
+            --yellow: #fbc02d;
+            --red: #e53935;
+            --bg: #f6f8f7;
+            --shadow: 0 10px 30px rgba(0,0,0,.08);
+        }
+
+        body {
+            background: var(--bg);
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            color: #333;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background: linear-gradient(90deg, var(--green), var(--green2));
+            color: #fff;
+            font-size: 13px;
+        }
+
+        /* LOGO */
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        /* CATEGORY PILLS */
+        .category-pill {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #444;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .category-pill:hover {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green);
+        }
+
+        /* SEARCH */
+        .search-input {
+            border-radius: 50px;
+            border: 1px solid #ddd;
+            padding-left: 15px;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--green), var(--green2));
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            padding: 0 16px;
+        }
+
+        /* DROPDOWN */
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow);
+            border-radius: 12px;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: auto;
+            padding: 8px;
+        }
+
+        /* GRID */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD */
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            transition: 0.2s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* IMAGE */
+        .product-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        /* INFO */
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .product-price {
+            font-weight: bold;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 14px;
+            margin-left: 6px;
+        }
+
+        .product-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            font-size: 16px;
+        }
+
+        
+    </style>
+
+    
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar py-2">
+    <div class="container d-flex justify-content-between">
+        <div>
+            <i class="bi bi-telephone-fill me-1"></i> 9600545552
+        </div>
+        <div class="d-none d-sm-block">
+            ISO Certified | Kerala's Finest
+        </div>
+    </div>
+</div>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="bg-white shadow-sm sticky-top py-3">
+    <div class="container">
+        <div class="row align-items-center g-3">
+
+            <!-- LOGO -->
+            <div class="col-6 col-md-2">
+                <a href="{% url 'freshcut' %}" class="logo">Fresh Cut</a>
+            </div>
+
+            <!-- CATEGORIES -->
+            <div class="col-12 col-md-4 order-3 order-md-2">
+                <div class="d-flex gap-2 overflow-auto">
+                    <a href="{% url 'fish' %}" class="text-decoration-none">
+                        <div class="category-pill">Fish</div>
+                    </a>
+                    <a href="{% url 'chicken' %}" class="text-decoration-none">
+                        <div class="category-pill">Chicken</div>
+                    </a>
+                    <a href="{% url 'mutton' %}" class="text-decoration-none">
+                        <div class="category-pill">Mutton</div>
+                    </a>
+                    <a href="{% url 'beef' %}" class="text-decoration-none">
+                        <div class="category-pill">Beef</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SEARCH -->
+            <div class="col-12 col-md-4 order-2 order-md-3">
+                <form method="GET" action="{% url 'product_search' %}">
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            name="q"
+                            class="form-control search-input"
+                            placeholder="Search fresh cuts..."
+                            value="{{ request.GET.q }}"
+                        >
+                        <button class="search-btn" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- USER + CART -->
+            <div class="col-6 col-md-2 order-4 text-end">
+                <div class="dropdown d-inline-block me-3">
+                    <a href="#" class="text-dark" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle fs-4"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                                    Logout
+                                </a>
+                            </li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <a href="{% url 'cart' %}" class="text-dark position-relative">
+                    <i class="bi bi-cart fs-4"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          style="font-size:10px;">
+                        0
+                    </span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- ================= PAGE CONTENT ================= -->
+
+<section class="container">
+
+    {% if query %}
+        <h3>
+            Search results for
+            <span style="color:green;">"{{ query }}"</span>
+        </h3>
+    {% else %}
+        <h3>Please enter a search term</h3>
+    {% endif %}
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <!-- ✅ SLUG USED HERE -->
+        <a href="{% url 'product_detail' product.slug %}" class="product-card-link">
+            <div class="product-card">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="product-image">
+                {% else %}
+                    <img src="{% static 'images/no-image.png' %}" class="product-image">
+                {% endif %}
+
+                <div class="product-info">
+                    <h4 class="product-name">{{ product.name }}</h4>
+
+                    {% if product.offer_price %}
+                        <p class="product-price">
+                            ₹{{ product.offer_price }}
+                            <span class="old-price">₹{{ product.price }}</span>
+                        </p>
+                    {% else %}
+                        <p class="product-price">₹{{ product.price }}</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </a>
+
+        {% empty %}
+        <p class="no-result">No products found 😕</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

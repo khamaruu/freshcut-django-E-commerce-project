@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Cut | Fish & Meat Store</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root{
+  --green:#1b5e20;
+  --green2:#2e7d32;
+  --yellow:#fbc02d;
+  --red:#e53935;
+  --bg:#f6f8f7;
+}
+
+body{
+  background:var(--bg);
+  font-family:"Segoe UI", system-ui;
+}
+
+/* TOP BAR */
+.top-bar{
+  background:linear-gradient(90deg,var(--green),var(--green2));
+  color:#fff;
+  font-size:13px;
+}
+
+/* LOGO */
+.logo{
+  font-size:26px;
+  font-weight:900;
+  color:var(--green);
+}
+
+/* CATEGORY PILLS */
+.category-pills{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.category-pill{
+  background:#fff;
+  border:1px solid #ddd;
+  padding:8px 18px;
+  border-radius:30px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  transition:.3s;
+}
+.category-pill i{color:var(--green);}
+.category-pill:hover{
+  background:var(--green);
+  color:#fff;
+}
+.category-pill:hover i{color:#fff;}
+
+/* HERO */
+.hero{
+  border-radius:24px;
+  background:
+    linear-gradient(135deg,rgba(0,0,0,.45),rgba(0,0,0,.2)),
+    url("https://images.unsplash.com/photo-1604909052743-94e838986d24");
+  background-size:cover;
+  color:white;
+  padding:80px 60px;
+  box-shadow:0 40px 90px rgba(0,0,0,.35);
+}
+.hero-offer{
+  background:linear-gradient(135deg,var(--yellow),#f9a825);
+  color:#000;
+  font-weight:900;
+  padding:8px 20px;
+  border-radius:30px;
+  display:inline-block;
+  margin-bottom:15px;
+}
+.hero h1{font-size:48px;font-weight:900;}
+.hero button{
+  background:var(--yellow);
+  border:none;
+  padding:14px 40px;
+  border-radius:40px;
+  font-weight:900;
+}
+
+/* DEALS */
+.deal-card{
+  background:#fffdf8;
+  border:2px dashed var(--red);
+  border-radius:20px;
+  box-shadow:0 18px 40px rgba(0,0,0,.15);
+  transition:.3s;
+  position:relative;
+  cursor:pointer;
+}
+.deal-card:hover{transform:translateY(-6px);}
+.deal-badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:var(--red);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  padding:6px 12px;
+  border-radius:20px;
+}
+.deal-card img{
+  height:180px;
+  object-fit:cover;
+  border-radius:18px 18px 0 0;
+}
+
+/* PRODUCTS */
+.product-card{
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 18px 40px rgba(0,0,0,.14);
+  transition:.3s;
+  cursor:pointer;
+}
+.product-card:hover{transform:translateY(-5px);}
+.product-card img{
+  height:180px;
+  object-fit:cover;
+  border-radius:20px 20px 0 0;
+}
+
+/* BUTTON */
+.btn-success{
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  border:none;
+}
+
+/* DROPDOWN STYLING */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border-radius: 15px;
+  padding: 10px;
+}
+.dropdown-item {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+.dropdown-item:hover {
+  background-color: var(--bg);
+  color: var(--green);
+}
+.dropdown-header {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #888;
+}
+
+/* FOOTER */
+footer{
+  background:#0f2f1d;
+  color:#cfe9dc;
+}
+.footer-link{
+  color:#cfe9dc;
+  text-decoration:none;
+  display:block;
+}
+.footer-link:hover{color:var(--yellow);}
+</style>
+</head>
+
+<body>
+
+
+{% include 'base.html' %}
+
+<div class="container my-5">
+  <div class="hero">
+    <div class="hero-offer">🔥 TODAY ONLY • UP TO 20% OFF</div>
+    <h1>Fresh Fish & Meat</h1>
+    <p class="fs-5">Direct from shop to your kitchen</p>
+    <button onclick="location.href='{% url 'fish' %}'">ORDER NOW</button>
+  </div>
+</div>
+
+<div class="container my-5">
+  <h3 class="fw-bold text-danger mb-4">🔥 Daily Deals</h3>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="deal-card">
+        <span class="deal-badge">TODAY</span>
+        <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba" class="w-100">
+        <div class="p-3">
+          <h6>Prawns</h6>
+          <p><del>₹850</del> <strong class="text-danger">₹720 / kg</strong></p>
+          <button class="btn btn-success btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="deal-card">
+        <span class="deal-badge">SAVE</span>
+        <img src="https://images.unsplash.com/photo-1604908177522-4326c6b7f5c4" class="w-100">
+        <div class="p-3">
+          <h6>Chicken Curry Cut</h6>
+          <p><del>₹260</del> <strong class="text-danger">₹220 / kg</strong></p>
+          <button class="btn btn-success btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <h3 class="fw-bold text-success mb-4">Popular Products</h3>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947" class="w-100">
+        <div class="p-3">
+          <h6>Mutton Curry Cut</h6>
+          <p>₹980 / kg</p>
+          <button class="btn btn-success btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1604908177522-4326c6b7f5c4" class="w-100">
+        <div class="p-3">
+          <h6>Chicken Breast</h6>
+          <p>₹320 / kg</p>
+          <button class="btn btn-success btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1603052875302-d376b7c0638a" class="w-100">
+        <div class="p-3">
+          <h6>Beef Boneless</h6>
+          <p>₹540 / kg</p>
+          <button class="btn btn-success btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1514516870926-2068e65ed5a6" class="w-100">
+        <div class="p-3">
+          <h6>Seer Fish</h6>
+          <p>₹760 / kg</p>
+          <button class="btn btn-success btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="pt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Fresh Cut</h5>
+        <p>Fresh fish & meat delivered safely.</p>
+      </div>
+      <div class="col-md-4">
+        <h6>Quick Links</h6>
+        <a class="footer-link">About</a>
+        <a class="footer-link">Contact</a>
+        <a class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="col-md-4">
+        <h6>Support</h6>
+        <p>📞 9600545552<br>✉ support@freshcut.com</p>
+      </div>
+    </div>
+    <hr>
+    <p class="text-center">© 2026 Fresh Cut</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

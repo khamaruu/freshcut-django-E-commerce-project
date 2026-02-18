@@ -1,0 +1,69 @@
+{% comment %} <div class="top-bar py-2">
+  <div class="container d-flex justify-content-between">
+    <div>📞 9600545552 | ✉ freshcut@gmail.com</div>
+    <div>ISO Certified | Kerala</div>
+  </div>
+</div>
+
+<div class="bg-white shadow-sm sticky-top">
+  <div class="container py-3">
+    <div class="row align-items-center g-3">
+
+      <!-- LOGO -->
+      <div class="col-md-3 logo">Fresh Cut</div>
+
+      <!-- CATEGORY -->
+      <div class="col-md-5">
+        <div class="category-pills">
+          <a href="{% url 'fish' %}" class="text-decoration-none"><div class="category-pill">Fish</div></a>
+          <a href="{% url 'chicken' %}" class="text-decoration-none"><div class="category-pill">Chicken</div></a>
+          <a href="{% url 'mutton' %}" class="text-decoration-none"><div class="category-pill">Mutton</div></a>
+          <a href="{% url 'beef' %}" class="text-decoration-none"><div class="category-pill">Beef</div></a>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+<div class="col-md-2">
+  <form method="GET" action="{% url 'product_search' %}">
+    <div class="input-group">
+      <input
+        type="text"
+        name="q"
+        class="form-control rounded-pill"
+        placeholder="Search products..."
+        value="{{ request.GET.q }}"
+      >
+      <button class="btn btn-success ms-1 rounded-pill" type="submit">
+        🔍
+      </button>
+    </div>
+  </form>
+</div>
+      <!-- USER + CART -->
+      <div class="col-md-2 text-end">
+        <div class="dropdown d-inline-block me-3">
+          <a href="#" class="dropdown-toggle text-dark text-decoration-none"
+             data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-4"></i>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            {% if user.is_authenticated %}
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">My Orders</a></li>
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+              <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+              <li><a class="dropdown-item" href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <a href="{% url 'cart' %}" class="text-dark text-decoration-none">
+          <i class="bi bi-cart fs-4"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div> {% endcomment %}

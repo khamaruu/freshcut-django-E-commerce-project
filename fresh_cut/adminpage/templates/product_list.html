@@ -1,0 +1,43 @@
+<h2>Products</h2>
+<a href="{% url 'product_create' %}">➕ Add Product</a>
+
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>SubCategory</th>
+    <th>Price</th>
+    <th>Stock</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+
+  {% for p in products %}
+  <tr>
+    <td><img src="{{ p.image.url }}" width="80"></td>
+    <td>{{ p.name }}</td>
+    <td>{{ p.category.name }}</td>
+    <td>{{ p.subcategory.name }}</td>
+    <td>₹{{ p.price }}</td>
+    <td>{{ p.stock }}</td>
+    <td>
+      {% if p.is_active %}
+        Active
+      {% else %}
+        Inactive
+      {% endif %}
+    </td>
+    <td>
+      <a href="{% url 'product_edit' p.slug %}">Edit</a> |
+      <a href="{% url 'product_toggle' p.slug %}">
+        {% if p.is_active %}
+          Deactivate
+        {% else %}
+          Activate
+        {% endif %}
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>

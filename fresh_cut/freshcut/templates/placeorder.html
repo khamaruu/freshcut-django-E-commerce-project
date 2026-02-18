@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Order | Fresh Cut</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root{
+  --green:#1b5e20;
+  --green2:#2e7d32;
+  --bg:#f6f8f7;
+}
+
+body{
+  background:var(--bg);
+  font-family:"Segoe UI", system-ui;
+}
+
+/* HEADER */
+.header{
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.logo{
+  font-size:24px;
+  font-weight:900;
+  color:var(--green);
+}
+
+/* CARD */
+.confirm-card{
+  background:#fff;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+/* SECTION TITLE */
+.section-title{
+  font-weight:800;
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+/* ORDER ITEM */
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+/* BUTTONS */
+.btn-main{
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  border:none;
+  padding:14px;
+  font-weight:800;
+  border-radius:30px;
+}
+.btn-outline{
+  border-radius:30px;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header py-3 mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="logo">Fresh Cut</div>
+    <a href="javascript:history.back()" class="text-decoration-none text-success fw-semibold">
+      ← Back to Checkout
+    </a>
+  </div>
+</div>
+
+<!-- CONFIRM ORDER -->
+<div class="container">
+  <div class="row g-4">
+
+    <!-- LEFT SIDE -->
+    <div class="col-md-7">
+
+      <!-- DELIVERY -->
+      <div class="confirm-card mb-4">
+        <div class="section-title">Delivery Address</div>
+        <p class="small mb-0">
+          Khamarudheen<br>
+          960054552<br>
+          Kochi, Kerala – 682001
+        </p>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="confirm-card mb-4">
+        <div class="section-title">Payment Method</div>
+        <p class="small mb-0">Cash on Delivery</p>
+      </div>
+
+      <!-- ITEMS -->
+      <div class="confirm-card">
+        <div class="section-title">Ordered Items</div>
+
+        <div class="order-item">
+          <span>Seer Fish (1kg)</span>
+          <span>₹760</span>
+        </div>
+
+        <div class="order-item">
+          <span>Chicken Breast (2kg)</span>
+          <span>₹640</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="col-md-5">
+      <div class="confirm-card">
+
+        <div class="section-title">Price Summary</div>
+
+        <div class="order-item">
+          <span>Subtotal</span>
+          <span>₹1,400</span>
+        </div>
+
+        <div class="order-item">
+          <span>Delivery</span>
+          <span>₹40</span>
+        </div>
+
+        <hr>
+
+        <div class="order-item fw-bold fs-6">
+          <span>Total</span>
+          <span>₹1,440</span>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+          <a href="{% url 'successorder'%}" class="btn btn-main text-white">
+            Confirm & Place Order
+          </a>
+          <a href="checkout.html" class="btn btn-outline-success btn-outline">
+            Edit Order
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

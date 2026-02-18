@@ -1,0 +1,22 @@
+<h4>Categories</h4>
+<a href="{% url 'category_create' %}" class="btn btn-primary mb-3">
+    Add Category
+</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for category in categories %}
+    <tr>
+        <td>{{ category.name }}</td>
+        <td>{{ category.is_active }}</td>
+        <td>
+            <a href="{% url 'category_update' category.id %}"
+               class="btn btn-sm btn-warning">Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
