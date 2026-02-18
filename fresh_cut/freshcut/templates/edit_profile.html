@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile | FreshCut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background:#f5f7fa;">
+
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg rounded-4 mx-auto" style="max-width:500px;">
+
+        <h4 class="text-center mb-4">Edit Profile</h4>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                {{ form.phone }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Profile Image</label>
+                {{ form.image }}
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auto_login, logout as auto_logout
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm , ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from adminpage.models import Product, Category
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.db.models import Q
-from .models import Cart
+from .models import Cart,Profile,User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 def freshcut(request):
     return render(request, 'home.html')
 
@@ -188,3 +190,27 @@ def remove_cart_item(request, item_id):
     cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
     cart_item.delete()
     return redirect("cart")
+
+
+# profile creation 
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@login_required
+def edit_profile(request):
+
+    profile = request.user.profile
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'edit_profile.html', {'form': form})        
+

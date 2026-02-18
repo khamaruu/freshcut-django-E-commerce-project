@@ -1,6 +1,6 @@
 from django import forms
 from .models import User
-
+from .models import Profile
 # SIGNUP FORM
 
 class SignupForm(forms.ModelForm):
@@ -71,3 +71,9 @@ class LoginForm(forms.Form):
             "placeholder": "Password"
         })
     )
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['phone', 'image']

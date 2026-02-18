@@ -22,14 +22,12 @@
             color: var(--pro-text);
         }
 
-        /* Top Navigation */
         .nav-header {
             background: var(--pro-bg);
             border-bottom: 1px solid var(--pro-border);
             padding: 1rem 0;
         }
 
-        /* Profile Header Section */
         .profile-container {
             max-width: 800px;
             margin: 40px auto;
@@ -78,7 +76,6 @@
             border: 2px solid white;
         }
 
-        /* Information Grid */
         .info-grid {
             padding: 30px;
             background: #fafbfc;
@@ -103,7 +100,6 @@
             color: var(--pro-text);
         }
 
-        /* List Items */
         .list-group-pro {
             border-top: 1px solid var(--pro-border);
         }
@@ -148,9 +144,9 @@
 
 <header class="nav-header">
     <div class="container d-flex align-items-center">
-        <a href="#" class="text-dark text-decoration-none">
+        <a href="/" class="text-dark text-decoration-none">
             <i class="bi bi-arrow-left me-2"></i>
-            <span class="fw-semibold">Account Settings</span>
+            <span class="fw-semibold">Back to Store</span>
         </a>
     </div>
 </header>
@@ -160,12 +156,16 @@
         
         <div class="account-header">
             <div class="profile-image-wrapper">
-                <img src="https://via.placeholder.com/100" class="profile-img" alt="Khamarudheen">
+                {% if user.profile.image %}
+                    <img src="{{ user.profile.image.url }}" class="profile-img" alt="{{ user.username }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/90" class="profile-img" alt="Default Profile">
+                {% endif %}
                 <div class="edit-badge"><i class="bi bi-camera"></i></div>
             </div>
             <div>
-                <h3 class="mb-1 fw-bold">Khamarudheen</h3>
-                <p class="mb-0 text-muted">+91 98765 43210</p>
+                <h3 class="mb-1 fw-bold">{{ user.username }}</h3>
+                <p class="mb-0 text-muted">{{ user.profile.phone|default:"No phone number added" }}</p>
             </div>
         </div>
 
@@ -173,21 +173,21 @@
             <div class="row">
                 <div class="col-md-6 info-group">
                     <div class="info-label">Email Address</div>
-                    <div class="info-data">user@email.com</div>
+                    <div class="info-data">{{ user.email }}</div>
                 </div>
                 <div class="col-md-6 info-group">
                     <div class="info-label">City / State</div>
-                    <div class="info-data">Kerala, India</div>
+                    <div class="info-data">{{ user.profile.city|default:"Not specified" }}</div>
                 </div>
                 <div class="col-12 info-group mb-0">
                     <div class="info-label">Shipping Address</div>
-                    <div class="info-data">Fresh Cut, Main Road, Near Market, Kerala - 670001</div>
+                    <div class="info-data">{{ user.profile.address|default:"No address saved." }}</div>
                 </div>
             </div>
         </div>
 
         <div class="list-group-pro">
-            <a href="#" class="list-item-pro">
+            <a href="{% url 'edit_profile' %}" class="list-item-pro">
                 <i class="bi bi-person-gear"></i>
                 <span class="fw-medium">Edit Profile Details</span>
                 <i class="bi bi-chevron-right arrow-icon"></i>
@@ -199,7 +199,7 @@
                 <i class="bi bi-chevron-right arrow-icon"></i>
             </a>
 
-            <a href="#" class="list-item-pro logout-btn">
+            <a href="{% url 'logout' %}" class="list-item-pro logout-btn">
                 <i class="bi bi-box-arrow-right"></i>
                 <span class="fw-semibold">Log Out from Account</span>
             </a>
