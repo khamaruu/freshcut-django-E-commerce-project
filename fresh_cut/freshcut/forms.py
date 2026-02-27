@@ -1,6 +1,6 @@
 from django import forms
 from .models import User
-from .models import Profile
+from .models import Profile,Address
 # SIGNUP FORM
 
 class SignupForm(forms.ModelForm):
@@ -77,3 +77,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['phone', 'image']
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['full_name', 'phone', 'house', 'city', 'pincode']        

@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login as auto_login, logout as auto_logout
-from .forms import SignupForm, LoginForm , ProfileForm
+from .forms import SignupForm, LoginForm , ProfileForm , AddressForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from adminpage.models import Product, Category
 from django.shortcuts import render, get_object_or_404,redirect
 from django.db.models import Q
-from .models import Cart,Profile,User
+from .models import Cart,Profile,User,Order,OrderItem , Address
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -55,14 +55,6 @@ def logout_view(request):
     auto_logout(request)
     return redirect('login')
 
-
-@login_required
-def checkout(request): 
-    return render(request, 'checkout.html')
-
-@login_required
-def placeorder(request): 
-    return render(request, 'placeorder.html')
 
 @login_required
 def successorder(request): 
@@ -202,7 +194,8 @@ def create_profile(sender, instance, created, **kwargs):
 @login_required
 def edit_profile(request):
 
-    profile = request.user.profile
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
 
     if request.method == "POST":
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -214,3 +207,106 @@ def edit_profile(request):
 
     return render(request, 'edit_profile.html', {'form': form})        
 
+#create a orderpagee
+@login_required
+def placeorder(request):
+
+    cart_items = Cart.objects.filter(user=request.user)
+
+    if not cart_items:
+        return redirect("cart")
+
+    total = sum(item.subtotal for item in cart_items)
+
+    order = Order.objects.create(
+        user=request.user,
+        total_amount=total
+    )
+
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            quantity=item.quantity,
+            price=item.product.price
+        )
+
+    cart_items.delete()
+
+    return redirect("placeorder")
+
+
+@login_required
+def order_detail(request, order_id):
+
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+
+    return render(request, "order_detail.html", {
+        "order": order
+    })
+
+@login_required
+def checkout(request):
+
+    cart_items = Cart.objects.filter(user=request.user)
+
+    if not cart_items:
+        return redirect("cart")
+
+    addresses = Address.objects.filter(user=request.user)
+    form = AddressForm()
+
+    subtotal = sum(item.subtotal for item in cart_items)
+
+    return render(request, "checkout.html", {
+        "cart_items": cart_items,
+        "addresses": addresses,
+        "form": form,
+        "subtotal": subtotal
+    })
+
+@login_required
+def create_order(request):
+
+    if request.method == "POST":
+
+        address_id = request.POST.get("address_id")
+        address = Address.objects.get(id=address_id)
+
+        cart_items = Cart.objects.filter(user=request.user)
+
+        total = sum(item.subtotal for item in cart_items)
+
+        order = Order.objects.create(
+            user=request.user,
+            address=address,
+            total_amount=total
+        )
+
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+
+        cart_items.delete()
+
+        return redirect("start_payment", order_id=order.id)
+
+    return redirect("cart")
+
+
+@login_required
+def add_address(request):
+
+    if request.method == "POST":
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            return redirect("checkout")
+
+    return redirect("checkout")

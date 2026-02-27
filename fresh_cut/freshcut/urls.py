@@ -24,6 +24,10 @@ urlpatterns = [
     path("remove/<int:item_id>/", views.remove_cart_item, name="remove_cart_item"),
     path("update-cart/<int:item_id>/",views.update_cart_quantity,name="update_cart_quantity"),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
+    path("place-order/", views.placeorder, name="placeorder"),
+    path("order/<int:order_id>/", views.order_detail, name="order_detail"),
+    path("add-address/", views.add_address, name="add_address"),
+    path("create-order/", views.create_order, name="create_order"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
